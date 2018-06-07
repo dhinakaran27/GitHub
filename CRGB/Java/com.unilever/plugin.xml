@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.handlers">
+                  <handler         	  	
+           commandId="org.eclipse.ui.edit.cut"
+            	 class="org.eclipse.ui.internal.handlers.WidgetMethodHandler:cut">
+    				 <activeWhen>  
+					 <and>
+                    <reference 
+                        definitionId="com.teamcenter.rac.ui.inMainPerspective"/>
+    				 <iterate ifEmpty="false">
+                      <adapt type="com.teamcenter.rac.kernel.TCComponent"> 
+						<test 
+							property="com.teamcenter.rac.common.testers.CutActionTester" 
+							value="" 
+							forcePluginActivation="true">
+						</test> 
+					    </adapt>
+                    </iterate> 	
+					 </and>
+            </activeWhen>
+      </handler>
+          <handler
+             class="com.unilever.rac.ui.saveascomponent.UL4ComponentSaveAsHandler"
+             commandId="com.unilever.ui.file.saveAs">
+            <activeWhen>
+                <and>
+                   <iterate ifEmpty="false">
+                      <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                         <test
+                               args="SaveAsInput"
+                               property="com.teamcenter.rac.kernel.TCComponent.constant.Fnd0EnableUsageOfDialog"
+                               />
+                       </adapt>
+                    </iterate>                
+                    <with variable="rac_command_suppression">
+                        <not>
+                           <iterate operator="or">
+                              <equals value="com.unilever.ui.file.saveAs"/>
+                           </iterate>
+                        </not>
+                    </with>
+                 </and>                
+            </activeWhen>
+      </handler>
+       <handler
+            commandId="com.unilever.rac.pamspecreport"
+            class="com.unilever.rac.ui.pamreport.UL4PAMSpecReportHandler">
+      </handler>
+      <handler
+            commandId="com.unilever.rac.packcompreport"
+            class="com.unilever.rac.ui.packreport.UL4PackCompReportHandler">
+      </handler>
+      <!-- <Usha: Added new hanlder for PnP Spec Report -->
+      <handler
+            commandId="com.unilever.rac.pnpspecreport"
+            class="com.unilever.rac.ui.pnpreport.UL4PnPSpecReportHandler">   
+      </handler>
+      <handler
+      		commandId="com.unilever.rac.EnvironmentalReport" 
+      		class="com.unilever.rac.ui.environmentalreport.EnvironmentalReportHandler">
+      </handler>
+      <handler
+            commandId="com.unilever.rac.pngspecreport"
+            class="com.unilever.rac.ui.pngreport.UL4PNGSpecReportHandler">   
+      </handler>
+      <!-- Added new hanlder for PnP -  List of PAM Report -->
+     <handler
+            commandId="com.unilever.rac.pnplistofpamreport"
+            class="com.unilever.rac.ui.pnpreport.UL4PnPListOfPAMReportHandler">   
+      </handler>
+      <!-- Handled this condition in server side as part of CR# 144
+      <handler
+      		commandId="com.teamcenter.rac.revise"
+      		class="com.unilever.rac.ui.revise.UL4ValidateReviseHandler">      		
+      		<activeWhen>
+				<iterate ifEmpty="false">
+					<and>
+						<adapt type="com.teamcenter.rac.kernel.TCComponent">
+							<test property="com.teamcenter.rac.kernel.TCComponent.typeClass" value="U4_Component,U4_ComponentRevision"> </test>
+						</adapt>
+					</and>
+				</iterate>
+			</activeWhen>		
+      </handler> 
+      -->
+       <!-- <Jayateertha: 03-Mar-2015-Added for Component Save As dialog - 
+       com.unilever.rac.ui.saveascomponent.UL4ComponentSaveAsHandler -->
+       
+      <!-- Tushar: CR233 - Handler definition for context change command, Production Update -->
+      <handler
+            commandId="com.unilever.rac.ui.changecontext.newCCProductionUpdate"
+            class="com.unilever.rac.ui.changecontext.UL4ChangeContextHandler">
+            <!--<enabledWhen>
+                <with variable="selection">
+                    <count value="1" />
+                    <iterate ifEmpty="false">
+                        <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <and>
+                                <or>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.property" args="release_status_list" value="U4_Released"/>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.property" args="release_status_list" value="%u4_released.DISPLAY"/>
+                                </or>
+                                <or>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.typeClass" value="U4_ComponentRevision"/>
+                                </or>
+                                <and>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.property" args="u4_stage" value="Capability Build"/>
+                                </and>                                
+                            </and>
+                        </adapt>
+                    </iterate>
+                </with>
+            </enabledWhen> -->
+      </handler>
+      <!-- Tushar: CR233 - Handler definition for context change command, Pilot Update -->
+      <handler
+            commandId="com.unilever.rac.ui.changecontext.newCCPilotUpdate"
+            class="com.unilever.rac.ui.changecontext.UL4ChangeContextHandler">
+            <!-- <enabledWhen>
+                <with variable="selection">
+                    <count value="1" />
+                    <iterate ifEmpty="false">
+                        <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <and>
+                                <or>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.property" args="release_status_list" value="U4_PilotLocked"/>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.property" args="release_status_list" value="%u4_pilotlocked.DISPLAY"/>
+                                </or>
+                                <or>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.typeClass" value="U4_ComponentRevision"/>
+                                </or>
+                                <and>
+                                    <test property="com.teamcenter.rac.kernel.TCComponent.property" args="u4_stage" value="Pilot"/>
+                                </and>
+                            </and>
+                        </adapt>
+                    </iterate>
+                </with>
+            </enabledWhen> -->
+      </handler>
+       <handler
+            commandId="com.unilever.ui.file.saveAs"
+            	class="com.unilever.rac.ui.saveascomponent.UL4ComponentSaveAsHandler">
+             <!--<activeWhen>               
+                   <iterate ifEmpty="false">
+                      <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                      <or>
+                       <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="Packaging_Developer">
+	                    </test>
+	                    <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="Packaging_Designer">
+	                    </test>
+	                    <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="DBA">
+	                    </test>
+	                     </or>
+                       </adapt>                      
+                   </iterate>         
+       </activeWhen>-->
+      </handler>
+      <!-- <Jayateertha: Added new component CAD Component -->
+       <handler
+            commandId="com.unilever.rac.newcadcomponent"
+            class="com.unilever.rac.ui.newcadcomponent.UL4CADComponentHandler">
+             <activeWhen>               
+                   <iterate ifEmpty="false">
+                      <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                      <or>
+                       <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="Packaging_Developer">
+	                    </test>
+	                    <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="Packaging_Designer">
+	                    </test>
+	                    <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="DBA">
+	                    </test>
+	                     </or>
+                       </adapt>                      
+                   </iterate>         
+       </activeWhen>
+      </handler>
+      <!-- added the command supression for new component -->
+      <handler
+            commandId="com.unilever.rac.newcomponent"
+            class="com.unilever.rac.ui.newcomponent.UL4ComponentHandler">
+             <activeWhen>               
+                   <iterate ifEmpty="false">
+                      <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                      <or>
+                       <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="Packaging_Developer">
+	                    </test>
+	                    <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="Packaging_Designer">
+	                    </test>
+	                    <test 
+	                    property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                       value="DBA">
+	                    </test>
+	                     </or>
+                       </adapt>                      
+                   </iterate>         
+       </activeWhen>
+      </handler>
+      
+      <handler
+            commandId="com.unilever.rac.reftextsearch"
+            class="com.unilever.rac.reftextsearch.RefTextSearchHandler">
+      </handler>
+     		 <handler
+            	 class="com.unilever.rac.handlers.ExportDataHandler"
+            	 commandId="com.unilever.rac.exportdata">
+    	  	</handler>
+    	  	<handler
+            	 class="com.unilever.rac.handlers.ImportDataHandler"
+            	 commandId="com.unilever.rac.importdata">
+    	  	</handler>
+      <handler
+            commandId="com.unilever.rac.createcaddataset"
+            class="com.unilever.cad.createcad.CreateDatasetHandler">
+      </handler>
+      <!-- <Jayateertha: 08-Oct-2015- Added for CR# 88 -->
+      <handler
+            commandId="com.unilever.rac.eAddNewCUButton"
+            class="com.unilever.rac.handlers.UnileverAddNewPAM.UnileverAddNewCUPAMHandler">   
+      </handler>
+      <handler
+            commandId="com.unilever.rac.eAddNewDUButton"
+            class="com.unilever.rac.handlers.UnileverAddNewPAM.UnileverAddNewDUPAMHandler">   
+      </handler>
+      <handler
+            commandId="com.unilever.rac.eAddNewCaseUnitButton"
+            class="com.unilever.rac.handlers.UnileverAddNewPAM.UnileverAddNewCaseUnitPAMHandler">   
+      </handler>
+      <handler
+            commandId="com.unilever.rac.ePAMRefreshAll"
+            class="com.unilever.rac.handlers.UnileverAddNewPAM.UnileverPAMRefreshHandler">   
+      </handler>
+	  <!--sushma-->
+	  <handler
+            commandId="com.unilever.rac.ui.valueextractor"
+            	class="com.unilever.rac.ui.valueextractor.ValueExtractorHandler">
+      </handler>
+      <handler
+            commandId="com.unilever.rac.ui.exporttosap"
+            	class="com.unilever.rac.ui.exporttosap.UL4ExportToSAPHandler">
+      </handler>
+       <handler
+            commandId="com.unilever.rac.pamspeccompreport"
+            class="com.unilever.rac.ui.pamcompreport.UL4PAMSpecCompareReportHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands" >
+         <command id="com.unilever.ui.file.saveAs" name="Save As..."/>
+	     <command id="com.unilever.rac.newcomponent" name="New Component"/>
+	     <command id="com.unilever.rac.newcadcomponent" name="New CAD Component"/>
+	     <command id="com.unilever.rac.createcaddataset" name="Add CAD Data"/>
+	     <command id="com.unilever.rac.eAddNewDUButton" name="Add New..."/>
+	     <command id="com.unilever.rac.eAddNewCUButton" name="Add New..."/>
+	     <command id="com.unilever.rac.eAddNewCaseUnitButton" name="Add New..."/>
+	     <command id="com.unilever.rac.ePAMRefreshAll" name="Refresh All..."/>
+		 <command id="com.unilever.rac.EnvironmentalReport" name="Environmental Report"/>
+	     
+	     <command id="com.unilever.rac.reftextsearch" name="RefText Search">
+	     	<commandParameter id="title" name="title" optional="true"/>
+            <commandParameter id="description" name="description" optional="true"/> 
+            <commandParameter id="queryName" name="queryName" optional="true"/> 
+            <commandParameter id="queryCriteria" name="queryCriteria" optional="true"/> 
+            <commandParameter id="columns" name="columns" optional="true"/>	     	
+            <commandParameter id="relation" name="relation" optional="true"/>	  	
+            <commandParameter id="type" name="type" optional="true"/>     	
+	     	<commandParameter id="source" name="source" optional="true" />
+	     </command>
+	     <command name="Import Data" id="com.unilever.rac.importdata"/>
+	     <command name="Export Data" id="com.unilever.rac.exportdata"/>
+	     <command name="PAM Specification Report" id="com.unilever.rac.pamspecreport">
+	     </command>
+	     <command name="Pack Component Report" id="com.unilever.rac.packcompreport">
+            </command>
+         <command name="PnP Specification Report"   
+            id="com.unilever.rac.pnpspecreport">
+      </command>
+         <command name="PnP List of PAM Report"   
+            id="com.unilever.rac.pnplistofpamreport">
+      </command>
+     	 <command name="PML Specification Report"   
+            id="com.unilever.rac.pngspecreport">
+     	 </command>
+		 <!--sushma-->
+		  <command  name="Export PackComponent To SAP"
+            id="com.unilever.rac.ui.exporttosap">
+      </command>
+       <command  name="PAM Specification Value Extractor"
+            id="com.unilever.rac.ui.valueextractor">
+      </command>
+         <!-- Tushar: CR233 - context change command defintion for Production Update  -->
+         <command name="Production Update"   
+            id="com.unilever.rac.ui.changecontext.newCCProductionUpdate">
+         </command>
+         <!-- Tushar: CR233 - context change command defintion for Pilot Update  -->
+         <command name="Pilot Update"   
+            id="com.unilever.rac.ui.changecontext.newCCPilotUpdate">
+         </command>
+         <command name="PAM Specification Compare Report" id="com.unilever.rac.pamspeccompreport">
+	     </command>
+   </extension>
+      <extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.importdata" icon="icons/Import.png"/>
+   </extension>
+      <extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.exportdata" icon="icons/Export.png"/>
+   </extension>
+         <extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.pamspecreport" icon="icons/pdf.png"/>
+   </extension>
+   <extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.packcompreport" icon="icons/pdf.png"/>
+   </extension>
+   		<extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.pnpspecreport" icon="icons/pdf.png"/>
+   </extension>
+   <extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.pnplistofpamreport" icon="icons/pdf.png"/>
+   </extension>
+   <extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.pngspecreport" icon="icons/pdf.png"/>
+   </extension>
+   <!--<extension point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.rac.pamspeccompreport" icon="icons/pdf.png"/>
+   </extension>-->
+<!-- <Jayateertha: 25-Nov-2014 Included types - U4_PNGResin and U4_PNGResinRevision, UPDATE:08-Jan-2015, included PMLRevision -->
+   <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution locationURI="menu:file?after=org.eclipse.ui.file.save">
+       		<command commandId="com.unilever.ui.file.saveAs" mnemonic="%saveAsAction.MNEMONIC">
+                <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false">
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+								<and>
+									<or>
+										<not>
+											<!-- Do not enable SaveAs for following types -->
+											<test 
+												property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+												value="U4_Project,U4_ProjectRevision,U4_PAM,U4_PAMRevision,U4_Component,U4_ComponentRevision,U4_CADComponent,U4_CADComponentRevision,U4_PnPSpec,U4_PnPSpecRevision,U4_DDE,U4_DDERevision,U4_PML,U4_PMLRevision">
+											</test>
+										</not>
+										<and>
+											<!-- However, enable for Project Revisions and Role = Package_Developer -->
+											<test 
+												property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+												value="Packaging_Developer">
+											</test>
+											<test 
+												property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+												value="U4_ProjectRevision">
+											</test>
+										</and>
+										<and>
+											<!-- However, enable for DDE Revision and Role = Packaging_Developer -->
+											<or>
+												<test 
+													property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+													value="Packaging_Developer">
+												</test>
+												 <test 
+													property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+													value="DBA">
+												</test>
+											</or>
+											<test 
+												property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+												value="U4_DDERevision">
+											</test>
+											<!--enabled save-as menu for DDE having release status Obsolete,Pilot Locked,Pilot Change Locked,Released PAM Pending,Released,Locked,Retired 
+											<test 
+												property="com.teamcenter.rac.common.testers.ReleaseStatusTester"
+												value="Obsolete,Pilot Locked,Pilot Change Locked,Released PAM Pending,Released,Locked,Retired" forcePluginActivation="true">
+											</test>
+											-->
+										</and>
+										<and>
+											<!-- And, enable for Component Revisions and Roles = Packaging_Developer,Packaging_Designer -->
+											 <or>
+												<test 
+													property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+													value="Packaging_Developer">
+												</test>
+												 <test 
+													property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+													value="Packaging_Designer">
+												</test>
+											</or>
+											<and>
+												<or>
+													<!--<For CR#150 - included CAD Component> --> 
+													<test 
+														property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+														value="U4_ComponentRevision,U4_CADComponentRevision">
+													</test>
+													<test
+															property="com.teamcenter.rac.kernel.TCComponent.property" 
+															args="u4_stage" value="Packaging Concept Creation">
+													</test>
+													<!--enabled save-as menu for the components having release status Released -->
+													<test 
+														property="com.teamcenter.rac.common.testers.ReleaseStatusTester"
+														value="Released,Lead Concept Selected,Product Design Locked,Obsolete" forcePluginActivation="true">
+													</test>
+													<test
+															args="process_stage"
+															property="com.teamcenter.rac.kernel.TCComponent.property"
+															value="">
+													</test>
+												</or>
+												<or>
+													<!--<For CR#150 - included CAD Component> --> 
+													<test 
+														property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+														value="U4_ComponentRevision">
+													</test>
+													<test
+															property="com.teamcenter.rac.kernel.TCComponent.property" 
+															args="u4_stage" value="Packaging Concept Creation">
+													</test>
+													<test
+															args="process_stage"
+															property="com.teamcenter.rac.kernel.TCComponent.property"
+															value="">
+													</test>
+												</or>
+											</and>
+											<not>
+											<or>
+												<test
+													property="com.teamcenter.rac.common.testers.ReleaseStatusTester"
+													value="Released PAM Pending" forcePluginActivation="true">
+												</test>
+												<test
+													args="u4_stage"
+													property="com.teamcenter.rac.kernel.TCComponent.property"
+													value="Design Realisation">
+												</test>
+												<test
+													args="u4_stage"
+													property="com.teamcenter.rac.kernel.TCComponent.property"
+													value="Pilot">
+												</test>
+											</or>
+											</not>
+										</and>
+										<and>
+											<!-- And, enable for PML Revisions and Roles = PTT,DBA -->
+											<or>
+												<test 
+													property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+													value="PTT">
+												</test>
+												 <test 
+													property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+													value="DBA">
+												</test>
+											</or>
+											<test 
+												property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+												value="U4_PMLRevision">
+											</test>
+										</and>
+									</or>
+								</and>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.ui.file.saveAs"/>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+                </visibleWhen>
+            </command>
+        </menuContribution>       
+               <menuContribution locationURI="menu:tools?after=additions">         
+         <command
+               commandId="com.unilever.rac.packcompreport"               
+               id="com.unilever.rac.packcompreport">
+			   <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false"> 
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <or>
+                              <test 
+                                    property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                    value="U4_ComponentRevision">
+                              </test>
+                              <test 
+	                                 property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                                 value="DBA,Packaging_Developer,Packaging_Designer">
+	                          </test>
+	                           </or>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.packcompreport"/>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+                </visibleWhen> 
+				</command>
+         <command
+               commandId="com.unilever.rac.pamspecreport"               
+               id="com.unilever.rac.pamspecreport">
+			   <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false"> 
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <or>
+                              <test 
+                                    property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                    value="U4_PAMRevision,U4_ComponentRevision">
+                              </test>
+                              <test 
+	                                 property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                                 value="DBA,Packaging_Developer,Packaging_Designer">
+	                          </test>
+	                           </or>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.pamspecreport"/>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+                </visibleWhen> 
+				</command> 
+				
+			<command
+               commandId="com.unilever.rac.pngspecreport"               
+               id="com.unilever.rac.pngspecreport">
+               	<visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false"> 
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <or>
+                              <test 
+                                    property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                    value="U4_PMLRevision">
+                              </test>
+                              <test 
+	                                 property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                                 value="DBA,Packaging_Developer,Packaging_Designer">
+	                          </test>
+	                           </or>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.pngspecreport"/>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+                </visibleWhen> 
+            </command>
+            <command
+               commandId="com.unilever.rac.pamspeccompreport"               
+               id="com.unilever.rac.pamspeccompreport">
+			   <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false"> 
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <or>
+                              <test 
+                                    property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                    value="U4_PAMRevision,U4_ComponentRevision">
+                              </test>
+                              <test 
+	                                 property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                                 value="DBA,Packaging_Developer,Packaging_Designer">
+	                          </test>
+	                           </or>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.pamspeccompreport"/>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+                </visibleWhen> 
+				</command> 
+      </menuContribution>
+      <menuContribution locationURI="menu:tools?after=additions">         
+         <command
+               commandId="com.unilever.rac.pnplistofpamreport"               
+               id="com.unilever.rac.pnplistofpamreport">
+			   <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false"> 
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <or>
+                              <test 
+                                    property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                    value="U4_DDERevision,U4_PnPSpecRevision">
+                              </test>
+                              <test 
+	                                 property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                                 value="DBA,Packaging_Developer">
+	                          </test>
+	                           </or>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.pnplistofpamreport"/>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+                </visibleWhen> 
+				</command> 
+      </menuContribution>
+      
+      <menuContribution locationURI="menu:tools?after=additions">  
+      	<command
+      		commandId="com.unilever.rac.EnvironmentalReport"
+      		id="com.unilever.rac.EnvironmentalReport">
+      		<visibleWhen>
+			<reference
+			definitionId="com.teamcenter.rac.ui.inMainPerspective">
+			</reference>
+			</visibleWhen>
+		</command>
+	</menuContribution>
+      
+      <menuContribution locationURI="menu:tools?after=additions">         
+         <command
+               commandId="com.unilever.rac.pnpspecreport"               
+               id="com.unilever.rac.pnpspecreport">
+			   <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false"> 
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                            <or>
+                              <test 
+                                    property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                    value="U4_DDERevision,U4_PnPSpecRevision">
+                              </test>
+                              <test 
+	                                 property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+	                                 value="DBA,Packaging_Developer">
+	                          </test>
+	                           </or>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.pnpspecreport"/>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+                </visibleWhen> 
+				</command> 
+      </menuContribution>
+	  <!--sushma-->
+	   <menuContribution locationURI="menu:tools?after=tools.Export">
+            	<command commandId="com.unilever.rac.ui.exporttosap" id="com.unilever.rac.ui.exporttosap"/>
+      </menuContribution>
+       <menuContribution locationURI="menu:tools?after=tools.Export">
+            	<command commandId="com.unilever.rac.ui.valueextractor" id="com.unilever.rac.ui.valueextractor"/>
+      </menuContribution>
+      <!-- Tushar: CR233 - context change command context menu for Production Update  -->
+      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">         
+         <command
+               commandId="com.unilever.rac.ui.changecontext.newCCProductionUpdate"
+               id="com.unilever.rac.ui.changecontext.newCCProductionUpdate"
+               tooltip="Create new production update related to selected objects"
+               icon="icons/newchange_16.png">
+               <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false">
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                                <and>
+                                    <and>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+                                            value="Packaging_Developer">
+                                        </test>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                            value="U4_ComponentRevision,U4_PAMRevision">
+                                        </test>    
+                                    </and>
+                                </and>
+                                <and>
+                                    <or>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                            args="release_status_list" value="U4_Released">
+                                        </test>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                            args="release_status_list" value="%u4_released.DISPLAY">
+                                        </test>    
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                            args="release_status_list" value="Released">
+                                        </test>
+                                    </or>
+                                </and>
+                                <and>
+                                    <test 
+                                        property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                        args="u4_stage" value="Capability Build">
+                                    </test>
+                                </and>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.ui.changecontext.newCCProductionUpdate"/>
+                                </iterate>
+                            </not>
+                        </with>
+                        <with variable="rac_contextmenu_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals value="com.unilever.rac.ui.changecontext.newCCProductionUpdate">
+                                    </equals>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+               </visibleWhen>               
+            </command> 
+      </menuContribution>
+      <!-- Tushar: CR233 - context change command context menu for Pilot Update  -->
+      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">         
+         <command
+               commandId="com.unilever.rac.ui.changecontext.newCCPilotUpdate"
+               id="com.unilever.rac.ui.changecontext.newCCPilotUpdate"
+               label="Pilot Update"
+               tooltip="Create new pilot update related to selected objects"
+               icon="icons/newchange_16.png">
+               <visibleWhen>
+                    <and>
+                        <iterate ifEmpty="false">
+                            <adapt type="com.teamcenter.rac.kernel.TCComponent">
+                                <and>
+                                    <and>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponentUser.role" 
+                                            value="Packaging_Developer">
+                                        </test>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.typeClass" 
+                                            value="U4_ComponentRevision,U4_PAMRevision">
+                                        </test>    
+                                    </and>
+                                </and>
+                                <and>
+                                    <or>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                            args="release_status_list" value="U4_PilotLocked">
+                                        </test>    
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                            args="release_status_list" value="Pilot Locked">
+                                        </test>
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                            args="release_status_list" value="U4_PilotChangeLocked">
+                                        </test>    
+                                        <test 
+                                            property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                            args="release_status_list" value="Pilot Change Locked">
+                                        </test>
+                                    </or>
+                                </and>
+                                <and>
+                                    <test 
+                                        property="com.teamcenter.rac.kernel.TCComponent.property" 
+                                        args="u4_stage" value="Pilot">
+                                    </test>
+                                </and>
+                            </adapt>
+                        </iterate>
+                        <with variable="rac_command_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals 
+                                        value="com.unilever.rac.ui.changecontext.newCCPilotUpdate"/>
+                                </iterate>
+                            </not>
+                        </with>
+                        <with variable="rac_contextmenu_suppression">
+                            <not>
+                                <iterate operator="or">
+                                    <equals value="com.unilever.rac.ui.changecontext.newCCPilotUpdate">
+                                    </equals>
+                                </iterate>
+                            </not>
+                        </with>
+                    </and>
+               </visibleWhen>
+               
+            </command> 
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+         <image commandId="com.unilever.ui.file.saveAs" 
+            	icon="icons/saveas_16.png"/>
+         <image commandId="com.unilever.rac.newcomponent" 
+            icon="icons/newitem_16.png"/>
+         <image commandId="com.unilever.rac.newcadcomponent"
+            icon="icons/newitem_16.png"/>
+         <image commandId="com.unilever.rac.reftextsearch" 
+            icon="icons/search_16.png"/>
+         <image commandId="com.unilever.rac.createcaddataset" 
+            icon="icons/newitem_16.png"/>
+         <image commandId="com.unilever.rac.eAddNewCUButton"
+            icon="icons/newitem_16.png"/>
+         <image commandId="com.unilever.rac.eAddNewDUButton"
+            icon="icons/newitem_16.png"/>
+         <image commandId="com.unilever.rac.eAddNewCaseUnitButton"
+            icon="icons/newitem_16.png"/> 
+         <image commandId="com.unilever.rac.ePAMRefreshAll"
+            icon="icons/refresh.png"/>
+		 <image commandId="com.unilever.rac.EnvironmentalReport"
+            icon="icons/generatereport.png"/>
+   </extension>
+	<extension
+         point="com.teamcenter.rac.common.renderingHint">
+     <renderingHint
+            id="SimpleArrayTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.table.SimpleArrayTableComposite">
+     </propertyBean>
+     </renderingHint>
+     <renderingHint
+            id="DisposalTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.table.DisposalTableComposite">
+     </propertyBean>
+     </renderingHint>
+     <renderingHint
+            id="ePAMTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.EPAMTableComposite">
+     </propertyBean>
+     </renderingHint>  
+     <renderingHint
+            id="ePAMComponentTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.EPAMComponentPropertiesTable">
+     </propertyBean>
+     </renderingHint>
+	 <renderingHint
+            id="ucselectionlist" priority="0">
+     <propertyBean
+           class="com.unilever.rac.project.UnileverClusterDisplay">
+     </propertyBean>
+     </renderingHint> 
+     <renderingHint
+            id="kcselectionlist" priority="0">
+     <propertyBean
+           class="com.unilever.rac.project.KeyCountriesDisplay">
+     </propertyBean>
+     </renderingHint>	
+      <renderingHint
+            id="cComponentTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.CComponentTableComposite">
+     </propertyBean>
+     </renderingHint> 
+      <renderingHint
+            id="cPackDetailsTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.CPackageDetailsTableComposite">
+     </propertyBean>
+     </renderingHint>  
+      <renderingHint
+            id="cPackDetailsILTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.CPackageDetailsILTableComposite">
+     </propertyBean>
+     </renderingHint> 
+      <renderingHint
+            id="cPackDimsTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.CPackageDimensionsTableComposite">
+     </propertyBean>
+     </renderingHint>  
+     <renderingHint
+            id="cLabelPropsTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.CLabelPropertiesTableComposite">
+     </propertyBean>
+     </renderingHint>
+     <renderingHint
+            id="cLayerStructTable" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.CLayerStructureTableComposite">
+     </propertyBean>
+     </renderingHint>  
+      <renderingHint
+            id="eText" priority="0">
+     <propertyBean
+           class="com.unilever.rac.pam.ETextComposite">
+     </propertyBean>
+     </renderingHint>    
+     <!-- <Jayateertha: Added new component for PML to PAM -->
+     <renderingHint
+            id="ePMLToPAMTable" priority="0">
+     		<propertyBean
+           		class="com.unilever.rac.pam.EPMLToPAMTableComposite">
+     		</propertyBean>
+     </renderingHint>  
+   </extension>
+       <extension point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester 
+            class="com.teamcenter.rac.common.testers.ReleaseStatusTester" 
+            id="com.teamcenter.rac.common.testers.ReleaseStatusTester" 
+            namespace="com.teamcenter.rac.common.testers" 
+            properties="ReleaseStatusTester" 
+            type="com.teamcenter.rac.kernel.TCComponent"/>
+       <propertyTester 
+            class="com.teamcenter.rac.common.testers.CutActionTester" 
+            id="com.teamcenter.rac.common.testers.CutActionTester" 
+            namespace="com.teamcenter.rac.common.testers" 
+            properties="CutActionTester" 
+            type="com.teamcenter.rac.kernel.TCComponent"/>
+</extension>
+</plugin>
